@@ -1016,6 +1016,7 @@ class Select extends React.Component {
 			<div ref={ref => this.wrapper = ref}
 				 className={className}
 				 style={this.props.wrapperStyle}>
+				{this.props.valueOnTop ? <div className="Select-multi-value-wrapper--top">{this.renderValue(valueArray, isOpen)}</div> : null}
 				{this.renderHiddenField(valueArray)}
 				<div ref={ref => this.control = ref}
 					className="Select-control"
@@ -1027,7 +1028,7 @@ class Select extends React.Component {
 					onTouchMove={this.handleTouchMove}
 				>
 					<span className="Select-multi-value-wrapper" id={this._instancePrefix + '-value'}>
-						{this.renderValue(valueArray, isOpen)}
+						{this.props.valueOnTop ? null : this.renderValue(valueArray, isOpen)}
 						{this.renderInput(valueArray, focusedOptionIndex)}
 					</span>
 					{removeMessage}
@@ -1110,6 +1111,7 @@ Select.propTypes = {
     value: PropTypes.any,                 // initial field value
     valueComponent: PropTypes.func,       // value component to render
     valueKey: PropTypes.string,           // path of the label value in option objects
+    valueOnTop: PropTypes.bool,           // display values on top instead of inside
     valueRenderer: PropTypes.func,        // valueRenderer: function (option) {}
     wrapperStyle: PropTypes.object,       // optional style to apply to the component wrapper
 };
@@ -1153,6 +1155,7 @@ Select.defaultProps = {
     tabSelectsValue: true,
     valueComponent: Value,
     valueKey: 'value',
+    valueOnTop: false,
 };
 
 export default Select;
